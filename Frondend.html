@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Generated Email</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        #input-section {
+            margin-bottom: 20px;
+        }
+
+        #generated-email {
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 150px;
+            white-space: pre-wrap; /* Preserve line breaks */
+        }
+
+        textarea {
+            width: 95%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            resize: vertical;
+        }
+
+        input[type="email"] {
+            width: 95%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+
+        #copy-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Generated Email</h1>
+
+    <div id="input-section">
+        <label for="email">Recipient's Email Address:</label><br>
+        <input type="email" id="email" placeholder="Enter recipient's email address"><br>
+
+        <label for="template">Select Template:</label><br>
+        <select id="template">
+            <option value="">Select Template</option>
+            <option value="followUp">Follow-Up Email (Professional)</option>
+            <option value="introduction">Introduction Email (Friendly)</option>
+            <option value="requestInfo">Request for Information (Formal)</option>
+            <option value="thankYou">Thank You Email (Friendly)</option>
+            <option value="invitation">Invitation Email (Persuasive)</option>
+            <option value="jobApplication">Job Application Email (Professional)</option>
+            <option value="apology">Apology Email (Formal)</option>
+            <option value="meetingRequest">Meeting Request Email (Professional)</option>
+            <option value="newsletter">Newsletter Subscription Confirmation (Friendly)</option>
+            <option value="feedbackRequest">Customer Feedback Request (Friendly)</option>
+            <option value="productUpdate">Product/Service Update (Urgent)</option>
+            <option value="promotion">Promotion or Sale Announcement (Persuasive)</option>
+        </select><br>
+
+        <label for="tone">Email Tone (Optional):</label><br>
+        <select id="tone">
+            <option value="">Select Tone</option>
+            <option value="formal">Formal</option>
+            <option value="informal">Informal</option>
+            <option value="professional">Professional</option>
+            <option value="friendly">Friendly</option>
+            <option value="persuasive">Persuasive</option>
+            <option value="urgent">Urgent</option>
+        </select><br>
+
+        <button id="generate-button">Generate Email</button>
+    </div>
+
+    <div>
+        <h2>Generated Email:</h2>
+        <div id="generated-email"></div>
+        <button id="copy-button" style="display:none;">Copy to Clipboard</button>
+    </div>
+
+    <script>
+        document.getElementById('generate-button').addEventListener('click', generateEmail);
+        document.getElementById('copy-button').addEventListener('click', copyToClipboard);
+
+        function generateEmail() {
+            const email = document.getElementById('email').value;
+            const template = document.getElementById('template').value;
+            const tone = document.getElementById('tone').value;
+            const generatedEmailDiv = document.getElementById('generated-email');
+            const copyButton = document.getElementById('copy-button');
+
+            // Validate email input
+            if (!email) {
+                alert("Please enter a recipient's email address.");
+                return;
+            }
+
+            // Select template based on user input
+            let generatedEmailText = '';
+
+            switch (template) {
+                case 'followUp':
+                    generatedEmailText = To: ${email}\nSubject: Follow-Up on Previous Email\n\nDear [Recipient's Name],\n\nI hope you're doing well. I just wanted to follow up on the email I sent last week regarding [Subject/Topic]. I understand you may be busy, but I wanted to check in and see if you had a chance to review it.\n\nIf you need any further information or clarification, feel free to reach out to me.\n\nLooking forward to your response.\n\nBest regards,\n[Your Name];
+                    break;
+                case 'introduction':
+                    generatedEmailText = To: ${email}\nSubject: Introduction from [Your Name]\n\nHi [Recipient's Name],\n\nI hope you're doing great! My name is [Your Name], and I work at [Company Name]. I wanted to take a moment to introduce myself and tell you a little bit about what we do here.\n\nAt [Company Name], we specialize in [Describe Services/Products]. I thought this could be of interest to you as [mention how your service/product is relevant to the recipient's business].\n\nIf you'd like to chat or need any more information, feel free to reach out. Looking forward to connecting with you!\n\nWarm regards,\n[Your Name];
+                    break;
+                case 'requestInfo':
+                    generatedEmailText = To: ${email}\nSubject: Request for Information Regarding [Topic]\n\nDear [Recipient's Name],\n\nI hope this email finds you well. I am writing to kindly request some information regarding [Subject/Topic].\n\nSpecifically, I am looking for details about [Explain what you need]. If you could provide this information at your earliest convenience, it would be greatly appreciated.\n\nThank you in advance for your assistance.\n\nBest regards,\n[Your Name];
+                    break;
+                case 'thankYou':
+                    generatedEmailText = To: ${email}\nSubject: Thank You for [Meeting/Conversation/Assistance]\n\nHi [Recipient's Name],\n\nI just wanted to take a moment to thank you for [the meeting, your time, etc.] earlier today. It was great connecting with you, and I really appreciated hearing your insights on [mention specific topic].\n\nLooking forward to keeping in touch and continuing our conversation!\n\nThanks again, and talk soon!\n\nBest,\n[Your Name];
+                    break;
+                case 'invitation':
+                    generatedEmailText = To: ${email}\nSubject: Invitation to [Event Name] on [Event Date]\n\nHi [Recipient's Name],\n\nI hope you're doing well. I wanted to personally invite you to [Event Name] on [Event Date]. This event will focus on [Event Topic], and we believe it would be a great opportunity for you to [mention benefits or opportunities].\n\nIt would be fantastic if you could attend and contribute your valuable insights. Please let me know if you're available to join us!\n\nLooking forward to hearing from you.\n\nBest regards,\n[Your Name];
+                    break;
+                case 'jobApplication':
+                    generatedEmailText = To: ${email}\nSubject: Application for [Job Title] Position\n\nDear [Hiring Manager's Name],\n\nI hope this message finds you well. I am writing to express my interest in the [Job Title] position at [Company Name] that was advertised on [Where You Found the Job Posting].\n\nWith my background in [Relevant Experience/Skills], I believe I would be a great fit for this role. I have attached my resume for your review and would be excited to discuss how my skills align with your needs.\n\nThank you for considering my application. I look forward to the opportunity to speak with you further.\n\nSincerely,\n[Your Name];
+                    break;
+                case 'apology':
+                    generatedEmailText = To: ${email}\nSubject: Apology for [Specific Issue]\n\nDear [Recipient's Name],\n\nI am writing to sincerely apologize for [specific situation or mistake]. I understand the impact this may have had on you, and I want to assure you that this was not intentional.\n\nPlease know that I am taking immediate steps to [mention any actions you're taking to resolve the issue], and I will make sure this does not happen again.\n\nI truly value our relationship and hope you will accept my apology. If you have any further concerns, please feel free to reach out.\n\nBest regards,\n[Your Name];
+                    break;
+                case 'meetingRequest':
+                    generatedEmailText = To: ${email}\nSubject: Request for Meeting on [Topic]\n\nDear [Recipient's Name],\n\nI hope you're doing well. I would like to schedule a meeting with you to discuss [Subject/Topic]. Would you be available on [Proposed Date and Time]? If that time doesn't work for you, please let me know your availability.\n\nLooking forward to our discussion.\n\nBest regards,\n[Your Name];
+                    break;
+                case 'newsletter':
+                    generatedEmailText = To: ${email}\nSubject: Welcome to Our Newsletter!\n\nHi [Recipient's Name],\n\nThanks for subscribing to our newsletter! We're thrilled to have you on board. You’ll be receiving updates on [topics you're covering] straight to your inbox.\n\nIf you have any questions or suggestions, feel free to reply to this email. We’d love to hear from you!\n\nTalk soon,\n[Your Name];
+                    break;
+                case 'feedbackRequest':
+                    generatedEmailText = To: ${email}\nSubject: We'd Love to Hear Your Feedback\n\nHi [Recipient's Name],\n\nI hope you’re doing well. We’re always striving to improve our [product/service], and we’d love to hear about your experience. Your feedback means a lot to us!\n\nIf you could spare a few minutes to fill out our short survey [insert link], we’d be extremely grateful. Your input helps us serve you better!\n\nThanks so much for your time.\n\nBest,\n[Your Name];
+                    break;
+                case 'productUpdate':
+                    generatedEmailText = To: ${email}\nSubject: Important Update to [Product/Service]\n\nDear [Recipient's Name],\n\nWe wanted to inform you about an important update to our [Product/Service] that requires your immediate attention. [Describe the update and its impact.]\n\nPlease take the necessary actions to ensure everything runs smoothly on your end. If you have any questions or need assistance, don’t hesitate to contact our support team.\n\nThank you for your prompt attention to this matter.\n\nSincerely,\n[Your Name];
+                    break;
+                case 'promotion':
+                    generatedEmailText = To: ${email}\nSubject: Don't Miss Out on Our [Discount] Offer!\n\nHi [Recipient's Name],\n\nWe’re excited to share that our [Product/Service] is now on sale! For a limited time, you can get [discount percentage or special offer] on your purchase.\n\nDon’t miss out—this offer ends on [date]. Visit our website today and take advantage of this amazing deal before it’s gone!\n\nWe look forward to having you as a customer!\n\nBest,\n[Your Name];
+                    break;
+                default:
+                    generatedEmailText = "Please select a template.";
+            }
+
+            // Insert tone if applicable
+            if (tone) {
+                generatedEmailText += \n\nTone: ${tone};
+            }
+
+            generatedEmailDiv.textContent = generatedEmailText;
+            copyButton.style.display = 'block';
+        }
+
+        function copyToClipboard() {
+            const generatedEmailDiv = document.getElementById('generated-email');
+            const range = document.createRange();
+            range.selectNode(generatedEmailDiv);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            alert('Email copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
